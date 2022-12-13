@@ -9,7 +9,7 @@ router
     .post(addOne);
 
 router
-    .route('/:apartment_number')
+    .route('/:id')
     .get(getOne)
     .delete(deleteOne);
 

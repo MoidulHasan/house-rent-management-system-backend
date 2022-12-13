@@ -5,7 +5,8 @@ const ApartmentSchema = new mongoose.Schema({
     Unit_Name: {
         type: String,
         required: [true, "Unit Name is required"],
-        select: true
+        select: true,
+        unique: [true, "Apartment name must be unique"]
     },
     Descriptions: {
         type: String,
@@ -24,7 +25,7 @@ const ApartmentSchema = new mongoose.Schema({
         select: true
     },
     Number_of_room: {
-        type: String,
+        type: Number,
         select: true
     },
     Billing: [{

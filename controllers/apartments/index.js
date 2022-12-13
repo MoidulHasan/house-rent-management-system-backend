@@ -1,7 +1,7 @@
 // Dependencies
 const Apartment = require("../../models/apartment");
 const AppError = require("../../utils/appError");
-const { getAll, createOne } = require("../baseController");
+const { getAll, createOne, deleteOne } = require("../baseController");
 
 
 // Module scafolding
@@ -16,7 +16,7 @@ apartmentController.getAll = async (req, res, next) => {
 
 apartmentController.getOne = async (req, res, next) => {
     try {
-        const doc = await Apartment.find({ Unit_Name: req.params.Unit_Name });
+        const doc = await Apartment.find({ Unit_Name: req.body.Unit_Name });
 
         if (!doc) {
             return next(new AppError(404, 'fail', 'No document found with that Unit Name'), req, res, next);
@@ -35,12 +35,19 @@ apartmentController.getOne = async (req, res, next) => {
 
 
 apartmentController.addOne = async (req, res, next) => {
+
+    const doc = await Apartment.find({ Unit_Name: req.body.Unit_Name });
+
+    if (doc.length) {
+        return next(new AppError(404, 'fail', 'Apartment Already Registered With This Unit Name'), req, res, next);
+    }
+
     await createOne(Apartment)(req, res, next);
 };
 
 apartmentController.deleteOne = async (req, res, next) => {
     try {
-        const doc = await Apartment.findOneAndDelete({ Unit_Name: req.params.Unit_Name });
+        const doc = await Apartment.findOneAndDelete({ _id: req.params.id });
 
         if (doc === null) {
             return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
