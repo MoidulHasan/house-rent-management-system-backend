@@ -10,6 +10,7 @@ const express = require('express');
 const router = express.Router();
 
 // import sub routes
+const buildingRoutes = require('./building')
 const apartmentRoutes = require('./apartments')
 const memberRoutes = require('./members')
 
@@ -30,7 +31,7 @@ router.post('/signup', authController.signup);
 // Protect all routes after this middleware
 router.use(authController.protect);
 
-
+router.use('/building', buildingRoutes);
 router.use('/apartments', apartmentRoutes);
 router.use('/members', memberRoutes);
 
