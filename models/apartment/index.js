@@ -8,6 +8,10 @@ const ApartmentSchema = new mongoose.Schema({
         select: true,
         unique: [true, "Apartment name must be unique"]
     },
+    Building_Name: {
+        type: String,
+        select: true
+    },
     Descriptions: {
         type: String,
         select: true
