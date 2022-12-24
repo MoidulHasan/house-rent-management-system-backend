@@ -13,7 +13,7 @@ const router = express.Router();
 const buildingRoutes = require('./building')
 const apartmentRoutes = require('./apartments')
 const memberRoutes = require('./members')
-
+const renterRoute = require("./renters")
 
 // Import controllers
 const authController = require('./../controllers/auth');
@@ -34,6 +34,8 @@ router.use(authController.protect);
 router.use('/building', buildingRoutes);
 router.use('/apartments', apartmentRoutes);
 router.use('/members', memberRoutes);
+router.use('/renters', renterRoute);
+
 
 
 
