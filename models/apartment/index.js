@@ -6,11 +6,11 @@ const ApartmentSchema = new mongoose.Schema({
         type: String,
         required: [true, "Unit Name is required"],
         select: true,
-        unique: [true, "Apartment name must be unique"]
     },
     Building_Name: {
         type: String,
-        select: true
+        select: true,
+        required: [true, "Building Name is required"],
     },
     Descriptions: {
         type: String,
@@ -18,26 +18,30 @@ const ApartmentSchema = new mongoose.Schema({
     },
     Category: {
         type: String,
-        select: true
+        select: true,
+        required: [true, "Category is required"],
     },
     Status: {
         type: String,
-        select: true
+        select: true,
+        required: [true, "Status is required"],
     },
     Rent_Charge: {
         type: Number,
-        select: true
+        select: true,
+        required: [true, "Rent Charge is required"],
     },
     Number_of_room: {
         type: Number,
-        select: true
+        select: true,
+        required: [true, "Number of room is required"],
     },
     Billing: [{
         Month: String,
         Status: String,
         Amount: Number
     }],
-    Current_Member_Phone: {
+    Current_Member_Id: {
         type: String,
         select: true
     }

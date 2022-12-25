@@ -54,6 +54,8 @@ exports.createOne = Model => async (req, res, next) => {
             }
         });
 
+        return doc;
+
     } catch (error) {
         next(error);
     }
@@ -99,3 +101,22 @@ exports.getAll = Model => async (req, res, next) => {
     }
 
 };
+
+exports.deleteMany = Model => async (req, res, next) => {
+    try {
+        const doc = await Model.deleteMany({ _id: { $in: req.body.ids } });
+
+        console.log(doc)
+
+        if (!doc) {
+            return next(new AppError(404, 'fail', 'Delete operation failed'), req, res, next);
+        }
+
+        res.status(204).json({
+            status: 'success',
+            data: null
+        });
+    } catch (error) {
+        next(error);
+    }
+}

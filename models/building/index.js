@@ -14,7 +14,8 @@ const BuildingSchema = new mongoose.Schema({
     },
     Address: {
         type: String,
-        select: true
+        select: true,
+        required: [true, "Building Address is required"],
     },
     Caretaker_Name: {
         type: String,

@@ -6,6 +6,7 @@ const RenterSchema = new mongoose.Schema({
         type: String,
         required: [true, "Renter Name is required"],
         select: true,
+        unique: false
     },
     NID: {
         type: String,
