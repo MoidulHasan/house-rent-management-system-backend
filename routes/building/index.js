@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAll, getOne, addOne, deleteOne } = require('../../controllers/building');
+const { getAll, getOne, addOne, deleteOne, updateOne } = require('../../controllers/building');
 const router = express.Router();
 
 
@@ -8,12 +8,15 @@ router
     .get(getAll)
     .post(addOne);
 
+// router
+//     .route('/:Building_Name')
+//     .get(getOne)
+//     .delete(deleteOne);
+
 router
     .route('/:id')
     .get(getOne)
-    .delete(deleteOne);
-
-
+    .put(updateOne)
 
 
 
