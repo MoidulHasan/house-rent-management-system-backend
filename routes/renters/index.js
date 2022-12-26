@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAll, getOne, addOne, deleteOne } = require('../../controllers/renters');
+const { getAll, getOne, addOne, deleteOne, updateOne } = require('../../controllers/renters');
 const router = express.Router();
 
 
@@ -11,7 +11,8 @@ router
 router
     .route('/:id')
     .get(getOne)
-    .delete(deleteOne);
+    .delete(deleteOne)
+    .put(updateOne);
 
 
 module.exports = router;
