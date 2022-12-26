@@ -2,7 +2,7 @@
 const Renter = require("../../models/renter");
 const Apartment = require("../../models/apartment");
 const AppError = require("../../utils/appError");
-const { getAll, createOne, deleteOne } = require("../baseController");
+const { getAll, createOne, deleteOne, updateOne } = require("../baseController");
 
 
 // Module scafolding
@@ -95,6 +95,21 @@ renterController.deleteOne = async (req, res, next) => {
         next(error);
     }
 };
+
+renterController.updateOne = async (req, res, next) => {
+    try {
+        const doc = await Renter.findById(req.params.id);
+
+        if (!doc) {
+            return next(new AppError(404, 'fail', 'Renter not found!'), req, res, next);
+        }
+
+        await updateOne(Renter)(req, res, next);
+    }
+    catch (error) {
+        next(error)
+    }
+}
 
 // export module
 module.exports = renterController;
