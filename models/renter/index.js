@@ -32,6 +32,11 @@ const RenterSchema = new mongoose.Schema({
         type: String,
         required: [true, "Apartment Name is required"],
         select: true,
+    },
+    Rent_Start_Date: {
+        type: String,
+        required: [true, "Rent Start Date is required"],
+        select: true,
     }
 });
 
