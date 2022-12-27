@@ -37,9 +37,15 @@ const ApartmentSchema = new mongoose.Schema({
         required: [true, "Number of room is required"],
     },
     Billing: [{
-        Month: String,
+        BillMonthAndYear: String,
+        RenterId: String,
+        Bills: [
+            {
+                BillName: String,
+                Amount: Number
+            }
+        ],
         Status: String,
-        Amount: Number
     }],
     Current_Member_Id: {
         type: String,
