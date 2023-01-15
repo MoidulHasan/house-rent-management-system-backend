@@ -63,8 +63,17 @@ exports.login = async (req, res, next) => {
 };
 
 exports.signup = async (req, res, next) => {
-
     try {
+
+        const doc = await User.findOne({ email: req.body.email })
+
+        if (doc) {
+            res.status(400).json({
+                status: "failed",
+                message: "User already exist with this email address"
+            });
+        }
+
         const user = await User.create({
             name: req.body.name,
             email: req.body.email,
