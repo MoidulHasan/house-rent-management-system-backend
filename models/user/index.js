@@ -16,6 +16,18 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     validate: [validator.isEmail, " Please provide a valid email"],
   },
+  nid: {
+    type: String,
+    select: true,
+  },
+  phone: {
+    type: String,
+    select: true,
+  },
+  permanentAddress: {
+    type: String,
+    select: true,
+  },
   password: {
     type: String,
     required: [true, "Please fill your password"],
@@ -27,7 +39,6 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please fill your password confirm"],
     validate: {
       validator: function (el) {
-        // "this" works only on create and save
         return el === this.password;
       },
       message: "Your password and confirmation password are not the same",
@@ -41,8 +52,19 @@ const userSchema = new mongoose.Schema({
   active: {
     type: Boolean,
     default: true,
-    select: false,
+    select: true,
   },
+
+  applications: [{
+    apartment_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Apartments',
+    },
+    application_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Applicationsc',
+    },
+  }]
 });
 
 // encrypt the password using 'bcryptjs'
