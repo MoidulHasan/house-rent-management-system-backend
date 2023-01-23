@@ -46,25 +46,14 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["Admin", "Renter"],
-    default: "Renter",
+    enum: ["Admin", "Renter", "Guest"],
+    default: "Guest",
   },
   active: {
     type: Boolean,
     default: true,
     select: true,
   },
-
-  applications: [{
-    apartment_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Apartments',
-    },
-    application_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Applicationsc',
-    },
-  }]
 });
 
 // encrypt the password using 'bcryptjs'

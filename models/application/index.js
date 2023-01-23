@@ -2,14 +2,14 @@
 const mongoose = require('mongoose');
 
 const ApplicationSchima = new mongoose.Schema({
-    apartment_id: {
+    apartment: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Apartments',
+        ref: 'Apartment',
         required: true,
     },
-    user_id: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users',
+        ref: 'User',
         required: true,
     },
     application_date: {
@@ -20,6 +20,7 @@ const ApplicationSchima = new mongoose.Schema({
     application_status: {
         type: String,
         default: "Pending",
+        enum: ["Pending", "Accepted", "Rejected"],
         required: true,
         select: true
     }

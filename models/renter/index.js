@@ -2,16 +2,13 @@
 const mongoose = require('mongoose');
 
 const RenterSchema = new mongoose.Schema({
-    User_Id: mongoose.Schema.Types.ObjectId,
-    Building_Name: {
-        type: String,
-        required: [true, "Building Name is required"],
-        select: true,
+    User: {
+        type: mongoose.Schema.Types.ObjectId,
+        Refs: "User"
     },
-    Apartment_Name: {
-        type: String,
-        required: [true, "Apartment Name is required"],
-        select: true,
+    Apartment: {
+        type: mongoose.Schema.Types.ObjectId,
+        Refs: "Apartment"
     },
     Rent_Start_Date: {
         type: String,

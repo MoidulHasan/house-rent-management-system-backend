@@ -11,7 +11,20 @@ const renterController = {};
 
 // Create controller for getting all rooms
 renterController.getAll = async (req, res, next) => {
-    await getAll(Renter)(req, res, next)
+    try {
+        const renters = await Renter.find().populate("user");
+
+        res.status(200).json({
+            status: 'success',
+            results: renters.length,
+            data: {
+                data: renters
+            }
+        });
+    } catch (err) {
+        next(err)
+    }
+
 }
 
 

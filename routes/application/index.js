@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAll, createOne, deleteOne } = require('../../controllers/application');
+const { getAll, createOne, deleteOne, update } = require('../../controllers/application');
 const router = express.Router();
 
 
@@ -11,9 +11,9 @@ router
 
 router
     .route('/:id')
-    // .get(getOne)
+    .put(update)
     .delete(deleteOne)
-// .put(updateOne)
+
 
 
 
