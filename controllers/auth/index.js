@@ -82,7 +82,6 @@ exports.signup = async (req, res, next) => {
             passwordConfirm: req.body.passwordConfirm,
             role: req.body.role,
         });
-        console.log(user)
 
         const token = createToken(user.id);
 
