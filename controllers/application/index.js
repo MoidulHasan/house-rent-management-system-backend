@@ -13,7 +13,10 @@ const applicationController = {};
 
 applicationController.getAll = async (req, res, next) => {
     try {
-        const features = new APIFeatures(Application.find().populate("user").populate("apartment"), req.query)
+        const features = new APIFeatures(Application.find().populate("user").populate("apartment").populate({
+            path: "apartment",
+            populate: "Building"
+        }), req.query)
             .sort()
             .paginate();
 
@@ -43,19 +46,15 @@ applicationController.createOne = async (req, res, next) => {
     const application = await createOne(Application)(req, res, next);
 
     if (application) {
-        console.log(req.body)
         const apartmentData = await Apartment.findById(req.body.apartment)
 
-        console.log(apartmentData)
 
         if (apartmentData?.applications) {
-            apartmentData.applications.push({
-                user_id: req.body.user,
-                application_id: application._id
-            })
+            apartmentData.applications.push(
+                application._id
+            )
         }
 
-        console.log(apartmentData)
 
         await Apartment.findByIdAndUpdate(req.body.apartment, apartmentData)
     }
@@ -76,7 +75,6 @@ applicationController.deleteOne = async (req, res, next) => {
             return application.application_id != req.params.id
         })
 
-        console.log(applications)
 
         await User.findByIdAndUpdate(req.query?.user_id, { applications: applications });
 
@@ -118,14 +116,10 @@ const accept = async (req, res, next) => {
         });
 
 
-        apartment.Renters.push({
-            apartment: application.apartment._id,
-            renter: renter._id,
-            rent_date: application.apartment.Abailable_From,
-        });
+        // apartment.renter = renter._id,
 
 
-        await Apartment.findByIdAndUpdate(application.apartment._id, { Renters: apartment.Renters, Status: "Occupied" })
+        await Apartment.findByIdAndUpdate(application.apartment._id, { renter: renter._id, Status: "Occupied" })
 
         await Application.findByIdAndUpdate(req.params.id, { application_status: "Accepted" })
 

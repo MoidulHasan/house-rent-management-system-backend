@@ -7,8 +7,9 @@ const ApartmentSchema = new mongoose.Schema({
         required: [true, "Unit Name is required"],
         select: true,
     },
-    Building_Name: {
-        type: String,
+    Building: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Building',
         select: true,
         required: [true, "Building Name is required"],
     },
@@ -36,6 +37,11 @@ const ApartmentSchema = new mongoose.Schema({
         select: true,
         required: [true, "Number of room is required"],
     },
+    Number_of_Bathroom: {
+        type: Number,
+        select: true,
+        required: [true, "Number of room is required"],
+    },
     Bills: [{
         BillMonthAndYear: String,
         User: {
@@ -50,30 +56,16 @@ const ApartmentSchema = new mongoose.Schema({
         ],
         Status: String,
     }],
-    Abailable_From: {
-        type: String
+    renter: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Renter',
     },
-    Renters: [
+    applications: [
         {
-            renter: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Renter',
-            },
-            rent_date: {
-                type: String,
-            },
-        }
-    ],
-    applications: [{
-        user_id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Users',
+            ref: 'Application',
         },
-        application_id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Applications',
-        },
-    }]
+    ]
 });
 
 const Apartment = mongoose.model("Apartment", ApartmentSchema);

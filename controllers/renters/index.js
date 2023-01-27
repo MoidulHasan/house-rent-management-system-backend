@@ -3,6 +3,7 @@ const Renter = require("../../models/renter");
 const Apartment = require("../../models/apartment");
 const AppError = require("../../utils/appError");
 const { getAll, createOne, deleteOne, updateOne } = require("../baseController");
+const APIFeatures = require("../../utils/apiFeatures");
 
 
 // Module scafolding
@@ -12,17 +13,25 @@ const renterController = {};
 // Create controller for getting all rooms
 renterController.getAll = async (req, res, next) => {
     try {
-        const renters = await Renter.find().populate("user");
+        const features = new APIFeatures(Renter.find().populate("User").populate("Apartment").populate({
+            path: "Apartment",
+            populate: "Building"
+        }), req.query)
+            .sort()
+            .paginate();
+
+        const doc = await features.query;
 
         res.status(200).json({
             status: 'success',
-            results: renters.length,
+            results: doc.length,
             data: {
-                data: renters
+                data: doc
             }
         });
-    } catch (err) {
-        next(err)
+
+    } catch (error) {
+        next(error);
     }
 
 }
