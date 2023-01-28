@@ -5,8 +5,6 @@ exports.deleteOne = Model => async (req, res, next) => {
     try {
         const doc = await Model.findByIdAndDelete(req.params.id);
 
-        console.log(doc)
-
         if (!doc) {
             return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
         }
@@ -106,7 +104,6 @@ exports.deleteMany = Model => async (req, res, next) => {
     try {
         const doc = await Model.deleteMany({ _id: { $in: req.body.ids } });
 
-        console.log(doc)
 
         if (!doc) {
             return next(new AppError(404, 'fail', 'Delete operation failed'), req, res, next);

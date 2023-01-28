@@ -12,7 +12,7 @@ const RentController = {};
 // Create controller for getting all rooms
 RentController.getAll = async (req, res, next) => {
     try {
-        const features = new APIFeatures(Apartment.find().populate("applications"), req.query)
+        const features = new APIFeatures(Apartment.find().populate("applications").populate("Building"), req.query)
             .sort()
             .paginate();
 

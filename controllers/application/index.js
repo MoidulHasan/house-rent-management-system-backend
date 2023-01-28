@@ -62,21 +62,25 @@ applicationController.createOne = async (req, res, next) => {
 
 applicationController.deleteOne = async (req, res, next) => {
     try {
-        const doc = await Application.findOneAndDelete({ _id: req.params.id });
+
+        const doc = await Application.findOne({ _id: req.params.id });
 
         if (doc === null) {
             return next(new AppError(404, 'fail', 'No application found with this id'), req, res, next);
         }
 
-        const user = await User.findById(req.query?.user_id);
+        const application = await Application.findOneAndDelete({ _id: req.params.id });
 
 
-        const applications = user?.applications?.filter((application) => {
-            return application.application_id != req.params.id
+        const apartment = await Apartment.findById(req.query?.apartment_id);
+
+
+        const applications = apartment?.applications?.filter((application) => {
+            return application._id != req.params.id
         })
 
 
-        await User.findByIdAndUpdate(req.query?.user_id, { applications: applications });
+        await Apartment.findByIdAndUpdate(req.query?.apartment_id, { applications: applications });
 
         res.status(200).json({
             status: 'success',
@@ -112,7 +116,6 @@ const accept = async (req, res, next) => {
         const renter = await Renter.create({
             User: application.user._id,
             Apartment: application.apartment._id,
-            Rent_Start_Date: application.apartment.Abailable_From,
         });
 
 

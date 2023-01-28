@@ -19,8 +19,18 @@ router
     .route('/:id/bill')
     .post(billController.addOne)
     // .get(getOne)
-    .put(billController.updateOne)
+
     .delete(billController.deleteOne);
+
+
+router
+    .route('/:id/bill/:billId')
+    .put(billController.updateOne);
+
+
+router
+    .route('/:id/bill/accept/:bill_id')
+    .get(billController.acceptPayment)
 
 
 module.exports = router;

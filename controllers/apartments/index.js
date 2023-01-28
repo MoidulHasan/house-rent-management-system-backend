@@ -13,7 +13,10 @@ const apartmentController = {};
 apartmentController.getAll = async (req, res, next) => {
 
     try {
-        const features = new APIFeatures(Apartment.find().populate("applications").populate("Building"), req.query)
+        const features = new APIFeatures(Apartment.find().populate("applications").populate("Building").populate("renter").populate({
+            path: "renter",
+            populate: "User"
+        }), req.query)
             .sort()
             .paginate();
 
