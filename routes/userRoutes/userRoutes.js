@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/userController');
-const authController = require('./../controllers/authController');
+const userController = require('../../controllers/userController');
+const authController = require('../../controllers/auth');
 
 
 router.post('/login', authController.login);
@@ -13,7 +13,7 @@ router.use(authController.protect);
 router.delete('/deleteMe', userController.deleteMe);
 
 // Only admin have permission to access for the below APIs 
-router.use(authController.restrictTo('admin'));
+// router.use(authController.restrictTo('admin'));
 
 router
     .route('/')

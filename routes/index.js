@@ -20,6 +20,7 @@ const apartmentRoutes = require('./apartments')
 const memberRoutes = require('./members')
 const renterRoute = require("./renters")
 const rentRoute = require("./rent")
+const userRoute = require("./userRoutes/userRoutes");
 
 // Import controllers
 const authController = require('./../controllers/auth');
@@ -48,6 +49,7 @@ router.use('/building', buildingRoutes);
 router.use('/apartments', apartmentRoutes);
 router.use('/members', memberRoutes);
 router.use('/renters', renterRoute);
+router.use('/users', userRoute);
 
 
 
