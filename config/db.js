@@ -26,9 +26,8 @@ database.connect = () => {
     mongoose.connect(url, {
         useNewUrlParser: true,
         useCreateIndex: true,
-        useFindAndModify: false,
-        useUnifiedTopology: true
-    }).then(con => {
+        useFindAndModify: false
+        }).then(con => {
         console.log('DB connection Successfully!');
     });
 }
